@@ -104,6 +104,36 @@ Use `--dry-run` to validate input and inspect the request without sending it to 
 python -m trading_bot.cli --symbol BTCUSDT --side BUY --type LIMIT --quantity 0.001 --price 90000 --dry-run
 ```
 
+## Docker Usage
+
+Build the image:
+
+```bash
+docker build -t binance-futures-testnet-bot .
+```
+
+Run a MARKET order:
+
+```bash
+docker run --rm \
+  -e BINANCE_API_KEY="your_testnet_api_key" \
+  -e BINANCE_API_SECRET="your_testnet_api_secret" \
+  binance-futures-testnet-bot \
+  --symbol BTCUSDT --side BUY --type MARKET --quantity 0.001
+```
+
+Run a LIMIT order:
+
+```bash
+docker run --rm \
+  -e BINANCE_API_KEY="your_testnet_api_key" \
+  -e BINANCE_API_SECRET="your_testnet_api_secret" \
+  binance-futures-testnet-bot \
+  --symbol BTCUSDT --side SELL --type LIMIT --quantity 0.001 --price 120000
+```
+
+This project is a CLI worker, not a web server. For cloud deployment, use a background worker or one-off job service and configure `BINANCE_API_KEY` and `BINANCE_API_SECRET` as private environment variables in the hosting dashboard.
+
 ## CLI Options
 
 ```text
